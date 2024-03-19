@@ -6,13 +6,14 @@ Console.WriteLine("converted:" + temp2.Convertor());
 
 Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++");
 
-Console.WriteLine("Enter a temperature and its unit (C or F)");
+Console.WriteLine("Enter a temperature and its unit (C or F) or 'quit' to exist");
+
 string? input = Console.ReadLine();
 
 while (true)
 {
     try
-    {
+    {   
         if (input is null || input == "" || input.Equals("quit", StringComparison.CurrentCultureIgnoreCase))
         {
             System.Console.WriteLine("BYEEEE");
