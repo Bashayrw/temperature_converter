@@ -1,38 +1,60 @@
-﻿Temperature temp1 = new(32, 'f');
+﻿TempConvert temp1 = new(32, 'f');
 Console.WriteLine("converted:" + temp1.Convertor());
 
-Temperature temp2 = new(100, 'c');
+TempConvert temp2 = new(100, 'c');
 Console.WriteLine("converted:" + temp2.Convertor());
 
 Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++");
 
 Console.WriteLine("Enter a temperature and its unit (C or F)");
+string? input = Console.ReadLine();
 
-
-try
+while (true)
 {
-    double temp = Convert.ToDouble(Console.ReadLine());
-    char unit = Convert.ToChar(Console.ReadLine());
-    if (!unit.Equals("C") || !unit.Equals("F")) ;
+    try
     {
-        Console.WriteLine(temp + unit);
-        // Console.WriteLine("not supported");
-        // throw new FormatException(unit + "not supported scale");
+        if (input is null || input == "" || input.Equals("quit", StringComparison.CurrentCultureIgnoreCase))
+        {
+            System.Console.WriteLine("BYEEEE");
+            break;
+        }
+        string[] info = input.Split(" ");
+        string unit = info[1];
+        if (unit.ToLower() == "c" || unit.ToLower() == "f")
+        {
+            if (double.TryParse(info[0], out double r))
+            {
+                double temper = double.Parse(info[0]);
+                TempConvert temp3 = new(temper, char.Parse(unit.ToLower()));
+                Console.WriteLine("converted:" + temp3.Convertor());
+            }
+            else
+            {
+                Console.WriteLine("YOU HAVE TO ENTER A NUMBER ONLY FOR TEPMERATURE!!!");
+            }
+        }
+        else
+        {
+            Console.WriteLine("ONLY Celsius or Fahrenheit ");
+        }
     }
-    Temperature temp3 = new(temp, unit);
-    Console.WriteLine("converted:" + temp3.Convertor());
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        break;
+    }
+    Console.WriteLine("Enter a temperature and its unit (C or F)");
+    input = Console.ReadLine();
+    continue;
 }
-catch (FormatException ex)
-{
 
-    Console.WriteLine(ex.Message);
-}
 
-class Temperature
+
+class TempConvert
 {
     double temperature;
     char unit;
-    public Temperature(double temp, char u)
+    public TempConvert(double temp, char u)
     {
         temperature = temp;
         unit = u;
@@ -53,7 +75,6 @@ class Temperature
         else return "not f or c";
     }
 }
-
 
 
 
